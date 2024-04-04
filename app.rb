@@ -11,13 +11,16 @@ def caesar_cipher( unencrypted_string, shift_offset)
 
   encrypted_string_array = unencrypted_string.chars.map do |char|
 
-    valid_char_to_encrypt = "[a-zA-Z]".match?(char)
-    puts "valid_char_to_encrypt : #{valid_char_to_encrypt}"
-
-    return char if "[a-zA-Z]".match?(char)
+    puts "\n\n"
 
     puts "char : #{char}"
     puts "char.ord : #{char.ord}"
+
+    valid_char_to_encrypt = char.match?(/[a-zA-z]/)
+    puts "valid_char_to_encrypt : #{valid_char_to_encrypt}"
+
+    next char if not valid_char_to_encrypt
+
 
     new_char = char
 
@@ -25,11 +28,16 @@ def caesar_cipher( unencrypted_string, shift_offset)
 
     new_char.setbyte(0, char.ord + shift_offset)
 
-    puts "new_char (modified) : #{new_char} \n\n"
+    puts "new_char (modified) : #{new_char}"
 
     new_char
   end
+
+  puts "encrypted_string_array : #{encrypted_string_array}"
+
   encrypted_string = encrypted_string_array.join("")
+
+  puts "encrypted_string : #{encrypted_string}"
   encrypted_string
 
 end
