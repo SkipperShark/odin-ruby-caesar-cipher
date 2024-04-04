@@ -9,8 +9,6 @@ def caesar_cipher( unencrypted_string, shift_offset)
 
   a_to_z_offset = "z".ord - "a".ord
 
-  pp "unencrypted_string : #{unencrypted_string}"
-
   encrypted_string_array = unencrypted_string.chars.map do |char|
 
     valid_char_to_encrypt = char.match?(/[a-zA-z]/)
@@ -22,9 +20,9 @@ def caesar_cipher( unencrypted_string, shift_offset)
     char_is_uppercase = char == char.upcase
     char_is_lowercase = char == char.downcase
 
-    a_z_swap_needed = if char_is_uppercase == true
+    a_z_swap_needed = if char_is_uppercase
                         (char.ord + shift_offset) > "Z".ord
-                      elsif char_is_lowercase == true
+                      elsif char_is_lowercase
                         (char.ord + shift_offset) > "z".ord
                       else
                         false
