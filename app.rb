@@ -16,7 +16,7 @@ def caesar_cipher( unencrypted_string, shift_offset)
   encrypted_string_array = unencrypted_string.chars.map do |char|
 
     char_ord = char.ord
-    valid_char_to_encrypt = char.match?(/[a-zA-z]/)
+    valid_char_to_encrypt = char.match?(/[a-zA-z]/) #we dont want to cipher spaces/punctuation
 
     next char if not valid_char_to_encrypt
 
