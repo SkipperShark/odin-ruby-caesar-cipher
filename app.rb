@@ -1,5 +1,5 @@
 unencrypted_string = "What a string!"
-shift_offset = 1
+shift_offset = 5
 
 #* expected output
 # > caesar_cipher("What a string!", 5)
@@ -7,37 +7,37 @@ shift_offset = 1
 
 def caesar_cipher( unencrypted_string, shift_offset)
 
+  a_to_z_offset = "z".ord - "a".ord
+
   pp "unencrypted_string : #{unencrypted_string}"
 
   encrypted_string_array = unencrypted_string.chars.map do |char|
 
-    puts "\n\n"
-
-    puts "char : #{char}"
-    puts "char.ord : #{char.ord}"
-
     valid_char_to_encrypt = char.match?(/[a-zA-z]/)
-    puts "valid_char_to_encrypt : #{valid_char_to_encrypt}"
 
     next char if not valid_char_to_encrypt
 
-
     new_char = char
 
-    puts "new_char : #{new_char}"
+    char_is_uppercase = char == char.upcase
+    char_is_lowercase = char == char.downcase
 
-    new_char.setbyte(0, char.ord + shift_offset)
+    a_z_swap_needed = if char_is_uppercase == true
+                        (char.ord + shift_offset) > "Z".ord
+                      elsif char_is_lowercase == true
+                        (char.ord + shift_offset) > "z".ord
+                      else
+                        false
+                      end
 
-    puts "new_char (modified) : #{new_char}"
+    new_ord = if a_z_swap_needed then char.ord + shift_offset - (a_to_z_offset + 1) else char.ord + shift_offset end
+
+    new_char.setbyte(0, new_ord)
 
     new_char
   end
 
-  puts "encrypted_string_array : #{encrypted_string_array}"
-
   encrypted_string = encrypted_string_array.join("")
-
-  puts "encrypted_string : #{encrypted_string}"
   encrypted_string
 
 end
