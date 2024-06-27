@@ -1,24 +1,21 @@
 unencrypted_string = "What a string!"
 shift_offset = 5
 
-#* expected output
+# * expected output
 # > caesar_cipher("What a string!", 5)
 #   => "Bmfy f xywnsl!"
 
-def caesar_cipher( unencrypted_string, shift_offset)
-
+def caesar_cipher(unencrypted_string, shift_offset)
   z_ord = "z".ord
-  Z_ord = "Z".ord
   a_ord = "a".ord
 
   a_to_z_offset = z_ord - a_ord + 1 # +1 as it takes 1 step to move from a to z
 
   encrypted_string_array = unencrypted_string.chars.map do |char|
-
     char_ord = char.ord
-    valid_char_to_encrypt = char.match?(/[a-zA-z]/) #we dont want to cipher spaces/punctuation
+    valid_char_to_encrypt = char.match?(/[a-zA-z]/) # we dont want to cipher spaces/punctuation
 
-    next char if not valid_char_to_encrypt
+    next char unless valid_char_to_encrypt
 
     new_char = char
 
@@ -33,16 +30,14 @@ def caesar_cipher( unencrypted_string, shift_offset)
                         false
                       end
 
-    new_ord = if a_z_swap_needed then char_ord + shift_offset - (a_to_z_offset) else char_ord + shift_offset end
+    new_ord = a_z_swap_needed ? char_ord + shift_offset - a_to_z_offset : char_ord + shift_offset
 
     new_char.setbyte(0, new_ord)
 
     new_char
   end
 
-  encrypted_string = encrypted_string_array.join("")
-  encrypted_string
-
+  encrypted_string_array.join
 end
 
 puts caesar_cipher(unencrypted_string, shift_offset)
